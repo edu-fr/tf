@@ -10,7 +10,7 @@ function compile() {
     # source_files is the variable with all the files we're gonna compile
     parallel --tty --jobs=${JOBS} $LLVM_PATH/$COMPILER $COMPILE_FLAGS \
       -Xclang -disable-O0-optnone \
-      -S -c -emit-llvm {} -o {.}.bc ::: "${source_files[@]}" 
+      -S -c -w -emit-llvm {} -o {.}.bc ::: "${source_files[@]}" 
     
     parallel --tty --jobs=${JOBS} $LLVM_PATH/opt -S {.}.bc -o {.}.rbc ::: "${source_files[@]}"
   

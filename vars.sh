@@ -1,3 +1,7 @@
+OPT="opt-9"
+LLVM_LINK="llvm-link-9"
+LLC="llc-9"
+
 # if 0, redirect benchmark output to /dev/null
 # if 1, print benchmark output to stdout
 [[ -n $DEBUG ]] || DEBUG=0
@@ -51,7 +55,7 @@ fi
 # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- 
 
 # LLVM_PATH  => The place where I have all the LLVM tools
-LLVM_PATH=""
+LLVM_PATH="/../../usr/lib/llvm-9/bin"
 
 [[ -d "${LLVM_PATH}" ]] || {
 	echo "One must define LLVM_PATH before running tf"

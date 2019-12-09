@@ -21,7 +21,7 @@ function cleanup_all() {
 }
 
 function unset_vars() {
-  unset COMPILER
+# unset COMPILER
   unset STDIN
   unset STDOUT
   unset RUN_OPTIONS
@@ -35,8 +35,27 @@ function set_vars(){
   # Let's set the variables that are unset
 
   # sometimes we need to use clang++
-  [[ -n $COMPILER ]] || COMPILER=clang
+  [[ -n $COMPILER ]] || COMPILER==clang
   # We can specify STDIN to something other than /dev/stdin
+  
+  #editado:
+  if [[ -n $LANGUAGE ]]; then
+    case $COMPILER in
+    gcc) 
+      COMPILER="g++"
+      echo "O compilador escolhido foi o g++";;
+    clang) 
+      COMPILER="clang++"
+      echo "O compilador escolhido foi o clang++";;
+    icc) 
+      COMPILER="i++"
+      echo "O compilador escolhido foi o i++";;
+    *) echo "Compilador nao identificado";;
+    esac
+  fi  
+
+  #fim edicao
+  
   [[ -n $STDIN ]] || STDIN=/dev/null
   # And STDOUT default is /dev/null. 
   [[ -n $STDOUT ]] || STDOUT=/dev/null
