@@ -45,18 +45,6 @@ struct element {
   int count;
 };
 
-void
-usage(char *name) {
-  printf("%s:\n", name);
-  printf("-i <number of (I)terations>\n");
-  printf("[-l <initial (L)ength of list, in elements>] (default 1)\n");
-  printf("[-n <(N)umber of lists>] (default 1 list)\n");
-  printf("[-s <(S)ize of element>] (default 32 bytes)\n");
-  printf("[-g <(G)rowth rate per list, in elements per iteration>] (default 0)\n");
-  printf("[-d] ((D)irty each element during traversal, default off)\n");
-  printf("[-t] (insert at (T)ail of list, default off)\n");
-}
-
 #define ALLOC_SIZE 127 /* pick wierd num to break strides */
 struct element *free_list = NULL;
 int next_free = ALLOC_SIZE;
@@ -74,11 +62,6 @@ allocate() {
   num_allocated ++;
   return (struct element *) 
 	 (((char *)free_list) + ((next_free ++) * element_size));
-}
-#else
-struct element * allocate() {
-  num_allocated ++;
-  return (struct element*)malloc(sizeof(struct element));
 }
 #endif
 
@@ -103,7 +86,15 @@ main(int argc, char *argv[]) {
   while (arg < argc) {
 	 if ((argv[arg][0] != '-') || (argv[arg][2] != 0)) {
 		printf("parse error in %s\n", argv[arg]);
-		usage(argv[0]);
+		//usage(argv[0]);
+		printf("%s:\n", *argv);
+		printf("-i <number of (I)terations>\n");
+		printf("[-l <initial (L)ength of list, in elements>] (default 1)\n");
+		printf("[-n <(N)umber of lists>] (default 1 list)\n");
+		printf("[-s <(S)ize of element>] (default 32 bytes)\n");
+		printf("[-g <(G)rowth rate per list, in elements per iteration>] (default 0)\n");
+		printf("[-d] ((D)irty each element during traversal, default off)\n");
+		printf("[-t] (insert at (T)ail of list, default off)\n");
 		return(-1);
 	 }
 	 c = argv[arg][1];
@@ -118,7 +109,15 @@ main(int argc, char *argv[]) {
 	 case 't': 		tail = 1; break;
 	 default:
 		printf("unrecognized option: %c\n", c);
-		usage(argv[0]);
+		//usage(argv[0]);
+		printf("%s:\n", *argv);
+		printf("-i <number of (I)terations>\n");
+		printf("[-l <initial (L)ength of list, in elements>] (default 1)\n");
+		printf("[-n <(N)umber of lists>] (default 1 list)\n");
+		printf("[-s <(S)ize of element>] (default 32 bytes)\n");
+		printf("[-g <(G)rowth rate per list, in elements per iteration>] (default 0)\n");
+		printf("[-d] ((D)irty each element during traversal, default off)\n");
+		printf("[-t] (insert at (T)ail of list, default off)\n");
 		return(-1);
 	 }
   }
@@ -137,7 +136,9 @@ main(int argc, char *argv[]) {
 
   for (i = 0 ; i < initial_length ; i ++) { 
 	 for (j = 0 ; j < num_lists ; j ++) { 
-		struct element *e = allocate();
+		//struct element *e = allocate();
+		struct element *e = (struct element*)malloc(sizeof(struct element));
+		num_allocated ++;
 		e->next = lists[j];
 		e->count = 0;
 		lists[j] = e;
@@ -167,7 +168,9 @@ main(int argc, char *argv[]) {
 	 growth -= j;
 	 for ( ; j > 0 ; j --) {
 		for (k = 0 ; k < num_lists ; k ++) { 
-		  struct element *e = allocate();
+		  //struct element *e = allocate();
+		  struct element *e = (struct element*)malloc(sizeof(struct element));
+		  num_allocated ++;
 		  e->count = k+j;
 		  if (tail) {
 			 struct element *trav = lists[k];

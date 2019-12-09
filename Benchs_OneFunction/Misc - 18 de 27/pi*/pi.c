@@ -9,15 +9,6 @@
  */
 #include <stdio.h>
 
-void myadd(float *sum,float *addend) {
-/*
-c   Simple adding subroutine thrown in to allow subroutine
-c   calls/returns to be factored in as part of the benchmark.
-*/
-      *sum = *sum + *addend;
-}
-
-
 int main(int argc, char *argv[]) {
    float ztot, yran, ymult, ymod, x, y, z, pi, prod;
    long int low, ixran, itot, j, iprod;
@@ -52,7 +43,11 @@ c   mantissa.
         yran = (prod - ymod*(long int)(prod/ymod));
         y = yran / ymod;
         z = x*x + y*y;
-        myadd(&ztot,&z);
+
+        //myadd(&ztot,&z);
+            ztot = ztot + z;
+        //end myadd
+        
         if ( z <= 1.0 ) {
           low = low + 1;
         }

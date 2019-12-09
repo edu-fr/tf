@@ -22,11 +22,11 @@
 #include <stdio.h>
 
 volatile double __complex__ accum;
-void emit(double __complex__ X) {
-  accum += X;
-}
 
-void mandel() {
+int main() {
+  
+  
+  //mandel():
   int x, y, n;
   for (x = 0; x < IMAGE_SIZE; ++x) {
     for (y = 0; y < IMAGE_SIZE; ++y) {
@@ -38,13 +38,15 @@ void mandel() {
         if (hypot(__real__ z, __imag__ z) >= ESCAPE)
           break;
       }
-      emit(z);
+      //emit(z):
+      accum += z;
+      //end emit
     }
   }
-}
 
-int main() {
-  mandel();
+  //end mandel
+  
+  
   printf("%d\n", (int)accum);
   return 0;
 }
